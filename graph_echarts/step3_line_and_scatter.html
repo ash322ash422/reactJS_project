@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ECharts Line and Scatter Plot Example</title>
+  <!-- Import ECharts library -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+  <style>
+    /* Flex container for placing both charts side by side */
+    .chart-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    /* Styling for individual chart boxes */
+    .chart-box {
+      width: 45%;  /* Adjust width to ensure both charts fit in a row */
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Combined Line and Scatter Plot</h1>
+
+  <!-- Flex container for the charts -->
+  <div class="chart-container">
+    <!-- Line Plot Container -->
+    <div id="lineChart" class="chart-box"></div>
+    <!-- Scatter Plot Container -->
+    <div id="scatterChart" class="chart-box"></div>
+  </div>
+
+  <script>
+    // Initialize ECharts instances for both charts
+    var lineChart = echarts.init(document.getElementById('lineChart'));
+    var scatterChart = echarts.init(document.getElementById('scatterChart'));
+
+    // Sample data for both charts
+    var xValues = [1, 2, 3, 4, 5];
+    var yLineValues = [10, 15, 13, 17, 19]; // Line chart Y values
+    var scatterData = [];
+    for (var i = 0; i < 50; i++) {
+      scatterData.push([
+        Math.floor(Math.random() * 10), // X-coordinate for scatter
+        Math.floor(Math.random() * 20)  // Y-coordinate for scatter
+      ]);
+    }
+
+    // Line chart configuration
+    var lineOption = {
+      title: {
+        text: 'Line Plot',
+        left: 'center'
+      },
+      xAxis: {
+        type: 'category',
+        data: xValues,
+        name: 'X-axis'
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Y-axis'
+      },
+      series: [{
+        name: 'Line Data',
+        type: 'line',
+        data: yLineValues,
+        itemStyle: {
+          color: '#4CAF50'
+        }
+      }]
+    };
+
+    // Scatter plot configuration
+    var scatterOption = {
+      title: {
+        text: 'Scatter Plot',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: 'X: {c[0]}<br>Y: {c[1]}'
+      },
+      xAxis: {
+        type: 'value',
+        name: 'X-axis'
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Y-axis'
+      },
+      series: [{
+        name: 'Scatter Data',
+        type: 'scatter',
+        data: scatterData,
+        symbolSize: 8,
+        itemStyle: {
+          color: '#FF5722'
+        }
+      }]
+    };
+
+    // Render the charts with their respective options
+    lineChart.setOption(lineOption);
+    scatterChart.setOption(scatterOption);
+  </script>
+</body>
+</html>

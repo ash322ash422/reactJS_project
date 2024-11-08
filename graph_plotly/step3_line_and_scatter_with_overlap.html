@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Combined Line and Scatter Plots with Plotly.js</title>
+  <!-- Import Plotly.js library -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h2 style="text-align: center;">Combined Line and Scatter Plots</h2>
+  <!-- Div element where Plotly will render the chart -->
+  <div id="combinedPlots" style="width: 100%; height: 400px;"></div>
+
+  <script>
+    // Sample data for both plots
+    var xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var yValuesLine = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    var yValuesScatter = [3, 1, 6, 5, 9, 2, 8, 7, 10, 4];
+
+    // Line chart trace
+    var lineTrace = {
+      x: xValues,
+      y: yValuesLine,
+      mode: 'lines+markers',  // Line with markers
+      type: 'scatter',
+      marker: { color: 'blue', size: 6 },
+      line: { color: 'blue', width: 2 },
+      name: 'Line Plot'
+    };
+
+    // Scatter plot trace
+    var scatterTrace = {
+      x: xValues,
+      y: yValuesScatter,
+      mode: 'markers', // Scatter plot
+      type: 'scatter',
+      marker: {
+        color: 'rgba(255, 99, 71, 0.8)', // Marker color with transparency
+        size: 12,
+        line: { color: 'rgb(217, 217, 217)', width: 1 }
+      },
+      name: 'Scatter Plot'
+    };
+
+    // Create subplots layout with two columns
+    var layout = {
+      title: 'Line and Scatter Plots Side-by-Side',
+      grid: { rows: 1, columns: 2, pattern: 'independent' },
+      plot_bgcolor: '#f9f9f9'
+    };
+
+    // Plot both traces in different subplots
+    Plotly.newPlot('combinedPlots', [lineTrace, scatterTrace], layout);
+  </script>
+</body>
+</html>

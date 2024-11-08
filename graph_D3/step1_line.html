@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Line Chart Example</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* Basic styling for the chart */
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">D3.js Line Chart</h1>
+  <!-- SVG container for the line chart -->
+  <div style="display: flex; justify-content: center;">
+    <svg id="lineChart" width="600" height="400"></svg>
+  </div>
+
+  <script>
+    // Sample data for the line chart
+    const data = [
+      { date: new Date(2023, 0, 1), value: 30 },
+      { date: new Date(2023, 1, 1), value: 80 },
+      { date: new Date(2023, 2, 1), value: 45 },
+      { date: new Date(2023, 3, 1), value: 60 },
+      { date: new Date(2023, 4, 1), value: 90 },
+      { date: new Date(2023, 5, 1), value: 55 }
+    ];
+
+    // Set up the SVG canvas dimensions and margins
+    const width = 600;
+    const height = 400;
+    const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+
+    // Create the SVG element and set its dimensions
+    const svg = d3.select("#lineChart")
+      .attr("width", width)
+      .attr("height", height);
+
+    // Set up scales for the x and y axes
+    const xScale = d3.scaleTime()
+      .domain(d3.extent(data, d => d.date))
+      .range([margin.left, width - margin.right]);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.value)])
+      .range([height - margin.bottom, margin.top]);
+
+    // Create the line generator function
+    const line = d3.line()
+      .x(d => xScale(d.date))
+      .y(d => yScale(d.value));
+
+    // Append the x-axis to the SVG
+    svg.append("g")
+      .attr("transform", `translate(0, ${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale).ticks(6));
+
+    // Append the y-axis to the SVG
+    svg.append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(yScale));
+
+    // Append the line path to the SVG
+    svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ECharts Example</title>
+  <!-- ECharts JavaScript Library -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+  <!-- HTML element where ECharts will render -->
+  <div id="main" style="width: 600px; height: 400px;"></div>
+
+  <script>
+    // Initialize the ECharts instance
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // Define options for the chart
+    var option = {
+      title: {
+        text: 'ECharts Line Chart Example'
+      },
+      tooltip: {},
+      legend: {
+        data:['Sales']
+      },
+      xAxis: {
+        data: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+      },
+      yAxis: {},
+      series: [{
+        name: 'Sales',
+        type: 'line',
+        data: [150, 230, 224, 218, 135, 147, 260]
+      }]
+    };
+
+    // Use the specified configuration to display the chart
+    myChart.setOption(option);
+  </script>
+</body>
+</html>

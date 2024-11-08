@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ECharts Scatter Plot Example</title>
+  <!-- Import ECharts library -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+  <!-- HTML element where ECharts will render -->
+  <div id="scatterPlot" style="width: 600px; height: 400px;"></div>
+
+  <script>
+    // Initialize the ECharts instance
+    var chart = echarts.init(document.getElementById('scatterPlot'));
+
+    // Sample data for scatter plot
+    var scatterData = [];
+    for (var i = 0; i < 50; i++) {
+      scatterData.push([
+        Math.floor(Math.random() * 100), // X-coordinate
+        Math.floor(Math.random() * 100)  // Y-coordinate
+      ]);
+    }
+
+    // Scatter plot options
+    var option = {
+      title: {
+        text: 'ECharts Scatter Plot',
+        left: 'center',
+        top: '10px'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: 'X: {c[0]}<br>Y: {c[1]}'  // Tooltip format
+      },
+      xAxis: {
+        type: 'value',
+        name: 'X-axis',
+        min: 0,
+        max: 100
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Y-axis',
+        min: 0,
+        max: 100
+      },
+      series: [
+        {
+          name: 'Random Data',
+          type: 'scatter',
+          symbolSize: 10,
+          data: scatterData,
+          itemStyle: {
+            color: '#3398DB'
+          }
+        }
+      ]
+    };
+
+    // Use the specified options to display the chart
+    chart.setOption(option);
+  </script>
+</body>
+</html>

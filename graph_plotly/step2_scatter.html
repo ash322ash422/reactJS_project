@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Scatter Plot with Plotly.js</title>
+  <!-- Import Plotly.js library -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h2 style="text-align: center;">Scatter Plot Example</h2>
+  <!-- Div element where Plotly will render the chart -->
+  <div id="scatterPlot" style="width: 600px; height: 400px; margin: auto;"></div>
+
+  <script>
+    // Sample data for the scatter plot
+    var xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var yValues = [3, 1, 6, 5, 9, 2, 8, 7, 10, 4];
+
+    // Define the scatter plot trace
+    var trace = {
+      x: xValues,
+      y: yValues,
+      mode: 'markers', // 'markers' mode for a scatter plot
+      type: 'scatter',
+      marker: {
+        color: 'rgba(255, 99, 71, 0.8)', // Customize color and opacity
+        size: 12, // Size of the scatter points
+        line: {
+          color: 'rgb(217, 217, 217)', // Outline color of points
+          width: 1
+        }
+      }
+    };
+
+    // Layout configuration for the chart
+    var layout = {
+      title: 'Basic Scatter Plot',
+      xaxis: { title: 'X-axis Label' },
+      yaxis: { title: 'Y-axis Label' },
+      plot_bgcolor: '#f9f9f9'
+    };
+
+    // Render the chart
+    Plotly.newPlot('scatterPlot', [trace], layout);
+  </script>
+</body>
+</html>

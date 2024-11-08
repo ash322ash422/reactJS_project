@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Line Chart with Plotly.js</title>
+  <!-- Import Plotly.js library -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h2 style="text-align: center;">Line Chart Example</h2>
+  <!-- Div element where Plotly will render the chart -->
+  <div id="lineChart" style="width: 600px; height: 400px; margin: auto;"></div>
+
+  <script>
+    // Sample data for the line chart
+    var xValues = [1, 2, 3, 4, 5];
+    var yValues = [10, 15, 13, 17, 19];
+
+    // Define the line chart trace
+    var trace = {
+      x: xValues,
+      y: yValues,
+      type: 'scatter',  // 'scatter' type with 'lines' mode creates a line chart
+      mode: 'lines+markers',  // Adds markers at each data point
+      marker: { color: 'blue', size: 6 },
+      line: { color: 'green', width: 2 }
+    };
+
+    // Layout configuration for the chart
+    var layout = {
+      title: 'Basic Line Chart',
+      xaxis: { title: 'X-axis Label' },
+      yaxis: { title: 'Y-axis Label' },
+      plot_bgcolor: '#f9f9f9'
+    };
+
+    // Render the chart
+    Plotly.newPlot('lineChart', [trace], layout);
+  </script>
+</body>
+</html>

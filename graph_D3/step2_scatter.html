@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3.js Scatter Plot Example</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    /* Styles for the SVG container and tooltips */
+    .chart {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+    }
+    .tooltip {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align: center;">D3.js Scatter Plot</h1>
+
+<!-- Tooltip for displaying data on hover -->
+<div class="tooltip"></div>
+
+<!-- SVG container for the scatter plot -->
+<svg id="scatterPlot" class="chart" width="600" height="400"></svg>
+
+<script>
+  // Set up dimensions and margins
+  const width = 600;
+  const height = 400;
+  const margin = { top: 20, right: 20, bottom: 40, left: 50 };
+
+  // Generate random data points
+  const data = Array.from({ length: 30 }, () => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100
+  }));
+
+  // Scales for X and Y axes
+  const xScale = d3.scaleLinear()
+                   .domain([0, 100])
+                   .range([margin.left, width - margin.right]);
+
+  const yScale = d3.scaleLinear()
+                   .domain([0, 100])
+                   .range([height - margin.bottom, margin.top]);
+
+  // Create the SVG container
+  const svg = d3.select("#scatterPlot");
+
+  // Append X and Y axes
+  svg.append("g")
+     .attr("transform", `translate(0, ${height - margin.bottom})`)
+     .call(d3.axisBottom(xScale));
+
+  svg.append("g")
+     .attr("transform", `translate(${margin.left}, 0)`)
+     .call(d3.axisLeft(yScale));
+
+  // Create a tooltip div
+  const tooltip = d3.select(".tooltip");
+
+  // Create scatter plot points
+  svg.selectAll("circle")
+     .data(data)
+     .enter()
+     .append("circle")
+     .attr("cx", d => xScale(d.x))
+     .attr("cy", d => yScale(d.y))
+     .attr("r", 5)
+     .attr("fill", "#69b3a2")
+     .on("mouseover", (event, d) => {
+       tooltip.style("opacity", 1)
+              .html(`X: ${d.x.toFixed(2)}, Y: ${d.y.toFixed(2)}`)
+              .style("left", (event.pageX + 5) + "px")
+              .style("top", (event.pageY - 20) + "px");
+     })
+     .on("mouseout", () => {
+       tooltip.style("opacity", 0);
+     });
+</script>
+</body>
+</html>
